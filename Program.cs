@@ -19,6 +19,7 @@ namespace TabliceCSharp
             string[] weekDay = { "poniedzialek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
             int counterDay = 0;
             int counterWeek = 1;
+            int repeatedTimeTemperature = 0;
 
             for (int i = 0; i < 364; i++)
             {
@@ -27,12 +28,22 @@ namespace TabliceCSharp
                 yearTemp356[i] = dayTemperature;
             }
 
+            for (int i = 0; i < yearTemp356.GetLength(0); i++)
+            {
+                _ = (yearTemp356[i] == yearTemp356[152]) ? repeatedTimeTemperature++ : repeatedTimeTemperature;
+            }
+
+            Console.WriteLine("Dane statystyczne:");
+            Console.WriteLine("W tym roku najniższa odnotowana temperature to: " + yearTemp356.Min());
+            Console.WriteLine("W tym roku najwyższa odnotowana temperature to: " + yearTemp356.Max());
+            Console.WriteLine($"W tym roku temperatura zanotowana 1 czerwca, tj. {yearTemp356[152]}*C odnotowana była {repeatedTimeTemperature} razy.");
+
             for (int i = 0; i < yearTemp356.Length; i++)
             {
 
                 if (counterDay == 0) Console.Write(counterWeek + ". ");
 
-                Console.Write(weekDay[counterDay] + " - " + yearTemp356[i] + ", ");
+                Console.Write(weekDay[counterDay] + " - " + yearTemp356[i] + "*C, ");
 
                 if(i % 7 == 6 ) {
                     Console.WriteLine();
